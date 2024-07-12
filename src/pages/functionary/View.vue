@@ -3,7 +3,7 @@
     <q-table
       flat
       bordered
-      :rows="employee"
+      :rows="functionary"
       :columns="columns"
       :filter="filter"
       no-data-label="No se encontraron resultados"
@@ -76,7 +76,8 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import serviceFunctionary from "src/services/serviceFunctionary";
-const employee = ref([]);
+import { data } from "autoprefixer";
+const functionary = ref([]);
 const filter = ref("");
 
 const columns = [
@@ -105,18 +106,20 @@ const columns = [
 ];
 
 onMounted(async () => {
-  await getEmployee();
+  await getFunctionary();
 });
 
-const getEmployee = async () => {
+const getFunctionary = async () => {
   try {
     const { data } = await serviceFunctionary.getFunctionary();
-    employee.value = data.data;
+    functionary.value = data.data;
 
-    // loading.value = false;
+    loading.value = false;
   } catch (error) {
     console.error(error);
+  console.log(data)
   }
+
 };
 
 const edit = async (id) => {

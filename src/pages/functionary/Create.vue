@@ -49,8 +49,6 @@
           </q-select>
         </div>
       </div>
-
-      {{ position }}
     </q-card-section>
 
     <q-card-actions vertical align="right">
@@ -80,7 +78,7 @@ const create = async () => {
     };
     const { data } = await serviceFunctionary.addFunctionary(requestData);
     console.log(data);
-    router.push({ name: "employee" });
+    router.push({ name: "functionary" });
     // loading.value = false;
   } catch (error) {
     console.error(error);

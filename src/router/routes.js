@@ -9,14 +9,14 @@ const routes = [
         component: () => import("pages/IndexPage.vue"),
       },
       {
-        path: "employee",
-        name: "employee",
-        component: () => import("pages/employee/View.vue"),
+        path: "functionary",
+        name: "functionary",
+        component: () => import("pages/functionary/View.vue"),
       },
       {
         path: "functionary/create",
         name: "functionaryCreate",
-        component: () => import("pages/employee/Create.vue"),
+        component: () => import("pages/functionary/Create.vue"),
       },
       {
         path: "position",
