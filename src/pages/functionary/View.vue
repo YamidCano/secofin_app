@@ -1,33 +1,11 @@
 <template>
   <q-card class="q-ma-lg">
-    <q-table
-      flat
-      bordered
-      :rows="functionary"
-      :columns="columns"
-      :filter="filter"
-      no-data-label="No se encontraron resultados"
-      no-results-label="No se encontraron resultados en la busqueda"
-      row-key="name"
-    >
+    <q-table flat bordered :rows="functionary" :columns="columns" :filter="filter" no-data-label="No se encontraron resultados" no-results-label="No se encontraron resultados en la busqueda" row-key="name">
       <template v-slot:top-left>
-        <q-btn
-          outline
-          color="primary"
-          icon="mdi-plus"
-          label="Crear"
-          :to="{ name: 'functionaryCreate' }"
-        />
+        <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'functionaryCreate' }"/>
       </template>
       <template v-slot:top-right>
-        <q-input
-          clearable
-          dense
-          debounce="300"
-          outlined
-          v-model="filter"
-          placeholder="Buscar"
-        >
+        <q-input clearable dense debounce="300" outlined v-model="filter" placeholder="Buscar">
           <template v-slot:prepend>
             <q-icon name="search" />
           </template>
@@ -55,13 +33,14 @@
           </q-td>
           <q-td key="actions" :props="props">
             <div class="q-gutter-sm">
-              <q-btn round outline color="primary" icon="mdi-pencil" size="sm" @click="edit(props.row.id)">
-                <q-tooltip
-                  class="bg-primary"
-                  :offset="[8, 8]"
-                  anchor="top middle"
-                  self="bottom middle"
-                >
+              <q-btn round outline color="primary" icon="mdi-pencil" size="sm" :to="{ name: 'functionaryEdit' }">
+                <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                  Editar Rol
+                </q-tooltip>
+              </q-btn>
+
+              <q-btn round outline color="primary" icon="mdi-delete" size="sm" @click="edit(props.row.id)">
+                <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                   Editar Rol
                 </q-tooltip>
               </q-btn>
