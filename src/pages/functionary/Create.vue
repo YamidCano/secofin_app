@@ -4,12 +4,7 @@
       <div class="text-h6">Crear empleado</div>
       <div class="row q-mt-md">
         <div class="col">
-          <q-input
-            class="q-px-sm"
-            outlined
-            label="Nombres empleado"
-            v-model="name"
-          />
+          <q-input class="q-px-sm"outlined label="Nombres empleado" v-model="name"/>
         </div>
         <div class="col">
           <q-input
@@ -22,25 +17,10 @@
       </div>
       <div class="row q-mt-md">
         <div class="col">
-          <q-input
-            type="number"
-            class="q-px-sm"
-            outlined
-            label="Documento empleado"
-            v-model="document"
-          />
+          <q-input type="number" class="q-px-sm" outlined label="Documento empleado" v-model="document"/>
         </div>
         <div class="col">
-          <q-select
-            class="q-px-sm"
-            outlined
-            v-model="position"
-            input-debounce="0"
-            label="Cargo"
-            :options="getposition"
-            emit-value
-            map-options
-          >
+          <q-select class="q-px-sm" outlined v-model="position" input-debounce="0" label="Cargo" :options="getposition" emit-value map-options>
             <template v-slot:no-option>
               <q-item>
                 <q-item-section class="text-grey"> No results </q-item-section>
