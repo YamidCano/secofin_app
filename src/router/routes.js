@@ -19,9 +19,19 @@ const routes = [
         component: () => import("pages/functionary/Create.vue"),
       },
       {
+        path: "functionary/edit",
+        name: "functionaryEdit",
+        component: () => import("pages/functionary/Edit.vue"),
+      },
+      {
         path: "position",
         name: "position",
         component: () => import("pages/position/View.vue"),
+      },
+      {
+        path: "position/create",
+        name: "positionCreate",
+        component: () => import("pages/position/Create.vue"),
       },
       {
         path: "payroll",
