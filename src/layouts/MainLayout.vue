@@ -19,11 +19,16 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Menu Principal </q-item-label>
+        <q-item-label header>Menu Principal </q-item-label>
         <q-list>
           <q-item clickable v-ripple :to="{ name: 'dashboard' }">
             <q-item-section>Dashboard</q-item-section>
           </q-item>
+        </q-list>
+      </q-list>
+      <q-list>
+        <q-item-label header>Tablas del sistema</q-item-label>
+        <q-list>
           <q-item clickable v-ripple :to="{ name: 'employee' }">
             <q-item-section>Empleados</q-item-section>
           </q-item>
@@ -32,6 +37,9 @@
           </q-item>
           <q-item clickable v-ripple :to="{ name: 'payroll' }">
             <q-item-section>Nominas</q-item-section>
+          </q-item>
+          <q-item clickable v-ripple :to="{ name: 'arlView' }">
+            <q-item-section>ARL</q-item-section>
           </q-item>
         </q-list>
       </q-list>

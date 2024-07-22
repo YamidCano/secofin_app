@@ -1,3 +1,5 @@
+import { ArlRoutes } from 'src/router/rauterPages/arl'
+
 const routes = [
   {
     path: "/",
@@ -28,6 +30,8 @@ const routes = [
         name: "payroll",
         component: () => import("pages/payroll/View.vue"),
       },
+      // Router arl
+      ...ArlRoutes,
     ],
   },
 
