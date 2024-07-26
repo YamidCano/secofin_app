@@ -29,7 +29,7 @@
       <q-list>
         <q-item-label header>Tablas del sistema</q-item-label>
         <q-list>
-          <q-item clickable v-ripple :to="{ name: 'employee' }">
+          <q-item clickable v-ripple :to="{ name: 'functionary' }">
             <q-item-section>Empleados</q-item-section>
           </q-item>
           <q-item clickable v-ripple :to="{ name: 'position' }">
