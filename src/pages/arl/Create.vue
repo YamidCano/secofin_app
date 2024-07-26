@@ -18,6 +18,7 @@
 import { ref, onMounted } from "vue"
 import serviceArl from "src/services/serviceArl"
 import { useRouter } from "vue-router"
+import { Notify } from 'quasar'
 const router = useRouter()
 const nombre = ref("")
 
@@ -32,7 +33,21 @@ const create = async () => {
     // loading.value = false;
   } catch (error) {
     console.error(error);
+    showNotify('negative', error.response?.data?.errors?.name || 'Error al editar o creae Rol');
   }
+};
+
+const showNotify = (type, message) => {
+  Notify.create({
+    message: message,
+    type: type,
+    badgeColor: 'white',
+    badgeTextColor: 'dark',
+    position: 'top-right',
+    progress: true,
+    // timeout: 0,
+    actions: [{ icon: 'close', color: 'white' }]
+  });
 };
 
 </script>
