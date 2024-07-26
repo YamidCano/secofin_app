@@ -33,7 +33,7 @@
           </q-td>
           <q-td key="actions" :props="props">
             <div class="q-gutter-sm">
-              <q-btn round outline color="primary" icon="mdi-pencil" size="sm" :to="{ name: 'functionaryEdit' }">
+              <q-btn round outline color="primary" icon="mdi-pencil" size="sm" :to="{ name: 'functionaryUpdate' }">
                 <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                   Editar Empleado
                 </q-tooltip>

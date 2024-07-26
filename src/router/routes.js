@@ -1,5 +1,7 @@
 import { ArlRoutes } from 'src/router/rauterPages/arl'
-
+import { FunctionaryRoutes } from './rauterPages/functionary';
+import { PositionRoutes } from './rauterPages/position';
+import { PayrollRoutes } from './rauterPages/payroll';
 const routes = [
   {
     path: "/",
@@ -10,36 +12,15 @@ const routes = [
         name: "dashboard",
         component: () => import("pages/IndexPage.vue"),
       },
-      {
-        path: "functionary",
-        name: "functionary",
-        component: () => import("pages/functionary/View.vue"),
-      },
-      {
-        path: "functionary/create",
-        name: "functionaryCreate",
-        component: () => import("pages/functionary/Create.vue"),
-      },
-      {
-        path: "functionary/edit",
-        name: "functionaryEdit",
-        component: () => import("pages/functionary/Edit.vue"),
-      },
-      {
-        path: "position",
-        name: "position",
-        component: () => import("pages/position/View.vue"),
-      },
-      {
-        path: "position/create",
-        name: "positionCreate",
-        component: () => import("pages/position/Create.vue"),
-      },
-      {
-        path: "payroll",
-        name: "payroll",
-        component: () => import("pages/payroll/View.vue"),
-      },
+      // Router functionary
+      ...FunctionaryRoutes,
+
+      // Router position
+      ...PositionRoutes,
+
+      // Router payroll
+      ...PayrollRoutes,
+
       // Router arl
       ...ArlRoutes,
     ],
