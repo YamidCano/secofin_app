@@ -38,7 +38,6 @@
                   Editar Empleado
                 </q-tooltip>
               </q-btn>
-
               <q-btn round outline color="primary" icon="mdi-delete" size="sm" @click="edit(props.row.id)">
                 <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                   Eliminar Empleado
@@ -60,27 +59,9 @@ const functionary = ref([]);
 const filter = ref("");
 
 const columns = [
-  {
-    name: "names",
-    align: "left",
-    label: "Nombres",
-    field: "names",
-    sortable: true,
-  },
-  {
-    name: "surname",
-    align: "left",
-    label: "Apellidos",
-    field: "surname",
-    sortable: true,
-  },
-  {
-    name: "document",
-    align: "left",
-    label: "Documento",
-    field: "document",
-    sortable: true,
-  },
+  { name: "names",align: "left",label: "Nombres",field: "names",sortable: true, },
+  { name: "surname",align: "left",label: "Apellidos",field: "surname",sortable: true, },
+  { name: "document",align: "left",label: "Documento",field: "document",sortable: true, },
   { name: 'actions', align: 'center', label: 'Opciones', field: 'actions' },
 ];
 

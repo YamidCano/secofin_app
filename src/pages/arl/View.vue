@@ -33,6 +33,11 @@
                   Editar
                 </q-tooltip>
               </q-btn>
+              <q-btn round outline color="primary" icon="mdi-delete" size="sm" @click="edit(props.row.id)">
+                <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                  Eliminar
+                </q-tooltip>
+              </q-btn>
             </div>
           </q-td>
         </q-tr>

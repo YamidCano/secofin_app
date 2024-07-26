@@ -20,6 +20,28 @@
           <q-icon size="2em" :name="filter ? 'mdi-text-box-search' : icon" />
         </div>
       </template>
+      <template v-slot:body="props">
+        <q-tr :props="props">
+          <q-td key="name" :props="props">
+            {{ props.row.name }}
+          </q-td>
+          <q-td key="actions" :props="props">
+            <div class="q-gutter-sm">
+              <q-btn round outline color="primary" icon="mdi-pencil" size="sm" :to="{ name: 'functionaryUpdate' }">
+                <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                  Editar
+                </q-tooltip>
+              </q-btn>
+
+              <q-btn round outline color="primary" icon="mdi-delete" size="sm" @click="edit(props.row.id)">
+                <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                  Eliminar
+                </q-tooltip>
+              </q-btn>
+            </div>
+          </q-td>
+        </q-tr>
+      </template>
     </q-table>
   </q-card>
 </template>
@@ -33,6 +55,7 @@ const filter = ref('');
 
 const columns = [
   { name: 'name', align: 'left', label: 'Nombres', field: 'name', sortable: true },
+  { name: 'actions', align: 'center', label: 'Opciones', field: 'actions' },
 ];
 
 onMounted(async () => {
