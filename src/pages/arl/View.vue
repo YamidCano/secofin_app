@@ -1,8 +1,7 @@
 <template>
   <q-card class="q-ma-lg">
-    <q-table flat bordered :rows="arl" :columns="columns" :filter="filter"
-      no-data-label="No se encontraron resultados" no-results-label="No se encontraron resultados en la busqueda"
-      row-key="name">
+    <q-table flat bordered :rows="arl" :columns="columns" :filter="filter" no-data-label="No se encontraron resultados"
+      no-results-label="No se encontraron resultados en la busqueda" row-key="name">
       <template v-slot:top-left>
         <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'arlCreate' }" />
       </template>
@@ -31,6 +30,12 @@
               <q-btn round outline color="primary" icon="mdi-pencil" size="sm" @click="EditArl(props.row.id)">
                 <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                   Editar
+                </q-tooltip>
+              </q-btn>
+              <q-btn round outline color="red" icon="mdi-delete" @click="alertDialog = true; itemId = props.row.id"
+                size=sm>
+                <q-tooltip class="bg-red mobile-hide" :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                  Eliminar Registro
                 </q-tooltip>
               </q-btn>
             </div>
