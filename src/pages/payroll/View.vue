@@ -1,8 +1,9 @@
 <template>
-  <q-card class="rounded-xl q-my-lg q-pa-lg">
-    <q-table flat bordered title="Nomina " :rows="payroll" :columns="columns" :filter="filter"
-      no-data-label="No se encontraron resultados" no-results-label="No se encontraron resultados en la busqueda"
-      row-key="name">
+  <q-card class="q-ma-lg">
+    <q-table flat bordered title="Nomina " :rows="payroll" :columns="columns" :filter="filter" no-data-label="No se encontraron resultados" no-results-label="No se encontraron resultados en la busqueda" row-key="name">
+      <template v-slot:top-left>
+        <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'functionaryCreate' }"/>
+      </template>
       <template v-slot:top-right>
         <q-input clearable dense debounce="300" outlined v-model="filter" placeholder="Buscar">
           <template v-slot:prepend>

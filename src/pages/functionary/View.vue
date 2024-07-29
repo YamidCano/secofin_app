@@ -1,33 +1,11 @@
 <template>
   <q-card class="q-ma-lg">
-    <q-table
-      flat
-      bordered
-      :rows="employee"
-      :columns="columns"
-      :filter="filter"
-      no-data-label="No se encontraron resultados"
-      no-results-label="No se encontraron resultados en la busqueda"
-      row-key="name"
-    >
+    <q-table flat bordered :rows="functionary" :columns="columns" :filter="filter" no-data-label="No se encontraron resultados" no-results-label="No se encontraron resultados en la busqueda" row-key="name">
       <template v-slot:top-left>
-        <q-btn
-          outline
-          color="primary"
-          icon="mdi-plus"
-          label="Crear"
-          :to="{ name: 'functionaryCreate' }"
-        />
+        <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'functionaryCreate' }"/>
       </template>
       <template v-slot:top-right>
-        <q-input
-          clearable
-          dense
-          debounce="300"
-          outlined
-          v-model="filter"
-          placeholder="Buscar"
-        >
+        <q-input clearable dense debounce="300" outlined v-model="filter" placeholder="Buscar">
           <template v-slot:prepend>
             <q-icon name="search" />
           </template>
@@ -55,14 +33,14 @@
           </q-td>
           <q-td key="actions" :props="props">
             <div class="q-gutter-sm">
-              <q-btn round outline color="primary" icon="mdi-pencil" size="sm" @click="edit(props.row.id)">
-                <q-tooltip
-                  class="bg-primary"
-                  :offset="[8, 8]"
-                  anchor="top middle"
-                  self="bottom middle"
-                >
-                  Editar Rol
+              <q-btn round outline color="primary" icon="mdi-pencil" size="sm" :to="{ name: 'functionaryUpdate' }">
+                <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                  Editar Empleado
+                </q-tooltip>
+              </q-btn>
+              <q-btn round outline color="primary" icon="mdi-delete" size="sm" @click="edit(props.row.id)">
+                <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                  Eliminar Empleado
                 </q-tooltip>
               </q-btn>
             </div>
@@ -76,47 +54,32 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import serviceFunctionary from "src/services/serviceFunctionary";
-const employee = ref([]);
+import { data } from "autoprefixer";
+const functionary = ref([]);
 const filter = ref("");
 
 const columns = [
-  {
-    name: "names",
-    align: "left",
-    label: "Nombres",
-    field: "names",
-    sortable: true,
-  },
-  {
-    name: "surname",
-    align: "left",
-    label: "Apellidos",
-    field: "surname",
-    sortable: true,
-  },
-  {
-    name: "document",
-    align: "left",
-    label: "Documento",
-    field: "document",
-    sortable: true,
-  },
+  { name: "names",align: "left",label: "Nombres",field: "names",sortable: true, },
+  { name: "surname",align: "left",label: "Apellidos",field: "surname",sortable: true, },
+  { name: "document",align: "left",label: "Documento",field: "document",sortable: true, },
   { name: 'actions', align: 'center', label: 'Opciones', field: 'actions' },
 ];
 
 onMounted(async () => {
-  await getEmployee();
+  await getFunctionary();
 });
 
-const getEmployee = async () => {
+const getFunctionary = async () => {
   try {
     const { data } = await serviceFunctionary.getFunctionary();
-    employee.value = data.data;
+    functionary.value = data.data;
 
-    // loading.value = false;
+    loading.value = false;
   } catch (error) {
     console.error(error);
+  console.log(data)
   }
+
 };
 
 const edit = async (id) => {

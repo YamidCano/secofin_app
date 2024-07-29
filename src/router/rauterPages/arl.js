@@ -10,6 +10,6 @@ export const ArlRoutes = [
   },
   {
     path: '/arl/update', name: 'arlUpdate',
-    component: () => import('pages/arl/update.vue')
+    component: () => import('pages/arl/Update.vue')
   }
 ]
