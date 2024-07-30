@@ -31,6 +31,7 @@ const create = async () => {
       nombre: nombre.value
     }
     const { data } = await serviceArl.addArl(requestData);
+    showNotify('positive', data.message)
     router.push({ name: "arlView" });
   } catch (error) {
     console.log("🚀 ~ create ~ error:", error)

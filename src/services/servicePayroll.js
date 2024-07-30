@@ -6,7 +6,7 @@ export default {
       const response = api.get("/payroll");
       return response;
     } catch (error) {
-      console.error("Service obtener - Error al obtener Payroll", error);
+      console.log("🚀 ~ getPayroll ~ error:", error)
       throw error;
     }
   },
@@ -16,7 +16,6 @@ export default {
       const response = api.post("/payroll/create", requestData);
       return response;
     } catch (error) {
-      console.error("Service add - Error al crear el Payroll", error);
       throw error;
     }
   },
@@ -26,7 +25,7 @@ export default {
       const response = await api.get('/payroll/edit/${PayrollId}');
       return response;
     } catch (error) {
-      console.error("Service edit - Rol No Encontrado", error);
+      console.log("🚀 ~ editPayroll ~ error:", error)
       throw error;
     }
   },
@@ -36,7 +35,7 @@ export default {
       const response = await api.put('/payroll/update/${PayrollId}, requestData');
       return response;
     } catch (error) {
-      console.error("Service update - Rol No Encontrado", error);
+      console.log("🚀 ~ updatePayroll ~ error:", error)
       throw error;
     }
   },
@@ -46,7 +45,7 @@ export default {
       const response = await api.delete('/payroll/delete/${PayrollId}');
       return response;
     } catch (error) {
-      console.error("Service delete - Rol No Encontrado", error);
+      console.log("🚀 ~ deletePayroll ~ error:", error)
       throw error;
     }
   },

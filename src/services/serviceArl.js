@@ -6,7 +6,7 @@ export default {
       const response = api.get("/arl");
       return response;
     } catch (error) {
-      console.error("Service obtener - Error al obtener Arl", error);
+      console.log("🚀 ~ getArl ~ error:", error)
       throw error;
     }
   },
@@ -16,17 +16,17 @@ export default {
       const response = api.post("/arl/create", requestData);
       return response;
     } catch (error) {
-      console.error("Service add - Error al crear el Arl", error);
+      console.log("🚀 ~ addArl ~ error:", error)
       throw error;
     }
   },
 
-  async editArl(ArlId) {
+  async showArl(ArlId) {
     try {
-      const response = await api.get(`/arl/edit/${ArlId}`);
+      const response = await api.get(`/arl/show/${ArlId}`);
       return response;
     } catch (error) {
-      console.error("Service edit - Rol No Encontrado", error);
+      console.log("🚀 ~ editArl ~ error:", error)
       throw error;
     }
   },
@@ -36,7 +36,7 @@ export default {
       const response = await api.put(`/arl/update/${ArlId}`, requestData);
       return response;
     } catch (error) {
-      console.error("Service update - Rol No Encontrado", error);
+      console.log("🚀 ~ updateArl ~ error:", error)
       throw error;
     }
   },
@@ -46,7 +46,17 @@ export default {
       const response = await api.delete(`/arl/delete/${ArlId}`);
       return response;
     } catch (error) {
-      console.error("Service delete - Rol No Encontrado", error);
+      console.log("🚀 ~ deleteArl ~ error:", error)
+      throw error;
+    }
+  },
+
+  async updateStatus(ArlId) {
+    try {
+      const response = await api.put(`/arl/updateStatus/${ArlId}`);
+      return response;
+    } catch (error) {
+      console.log("🚀 ~ updateStatus ~ error:", error)
       throw error;
     }
   },

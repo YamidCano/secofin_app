@@ -6,7 +6,7 @@ export default {
       const response = api.get("/functionary");
       return response;
     } catch (error) {
-      console.error("Service obtener - Error al obtener functionary", error);
+      console.log("🚀 ~ getFunctionary ~ error:", error)
       throw error;
     }
   },
@@ -16,7 +16,7 @@ export default {
       const response = api.post("/functionary/create", requestData);
       return response;
     } catch (error) {
-      console.error("Service add - Error al crear el functionary", error);
+      console.log("🚀 ~ addFunctionary ~ error:", error)
       throw error;
     }
   },
@@ -26,7 +26,7 @@ export default {
       const response = await api.get('/functionary/edit/${functionaryId}');
       return response;
     } catch (error) {
-      console.error("Service edit - Rol No Encontrado", error);
+      console.log("🚀 ~ editFunctionary ~ error:", error)
       throw error;
     }
   },
@@ -36,7 +36,7 @@ export default {
       const response = await api.put('/functionary/update/${functionaryId}, requestData');
       return response;
     } catch (error) {
-      console.error("Service update - Rol No Encontrado", error);
+      console.log("🚀 ~ updateFunctionary ~ error:", error)
       throw error;
     }
   },
@@ -46,7 +46,7 @@ export default {
       const response = await api.delete('/functionary/delete/${functionaryId}');
       return response;
     } catch (error) {
-      console.error("Service delete - Rol No Encontrado", error);
+      console.log("🚀 ~ deleteFunctionary ~ error:", error)
       throw error;
     }
   },
