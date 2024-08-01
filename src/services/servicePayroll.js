@@ -1,9 +1,9 @@
-import {api} from "boot/axios"
+import Api from "./Api"
 
 export default {
   getPayroll() {
     try {
-      const response = api.get("/payroll");
+      const response = Api().get("/payroll");
       return response;
     } catch (error) {
       console.log("🚀 ~ getPayroll ~ error:", error)
@@ -13,7 +13,7 @@ export default {
 
   async addPayroll(requestData) {
     try {
-      const response = api.post("/payroll/create", requestData);
+      const response = Api().post("/payroll/create", requestData);
       return response;
     } catch (error) {
       throw error;
@@ -22,7 +22,7 @@ export default {
 
   async editPayroll(PayrollId) {
     try {
-      const response = await api.get('/payroll/edit/${PayrollId}');
+      const response = await Api().get('/payroll/edit/${PayrollId}');
       return response;
     } catch (error) {
       console.log("🚀 ~ editPayroll ~ error:", error)
@@ -32,7 +32,7 @@ export default {
 
   async updatePayroll(PayrollId, requestData) {
     try {
-      const response = await api.put('/payroll/update/${PayrollId}, requestData');
+      const response = await Api().put('/payroll/update/${PayrollId}, requestData');
       return response;
     } catch (error) {
       console.log("🚀 ~ updatePayroll ~ error:", error)
@@ -42,7 +42,7 @@ export default {
 
   async deletePayroll(PayrollId) {
     try {
-      const response = await api.delete('/payroll/delete/${PayrollId}');
+      const response = await Api().delete('/payroll/delete/${PayrollId}');
       return response;
     } catch (error) {
       console.log("🚀 ~ deletePayroll ~ error:", error)

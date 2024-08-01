@@ -3,7 +3,7 @@ import { useAppStore } from 'stores/app';
 import { Notify } from 'quasar'
 
 export const urlBase = "http://127.0.0.1:8000/api";
-// export const urlBase = "https://api.miravento.com.co/api";
+// export const urlBase = "https://app.secofin-on.com/service/public/api";
 
 const showErrorAlert = () => {
 

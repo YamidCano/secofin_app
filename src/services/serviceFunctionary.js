@@ -1,9 +1,9 @@
-import {api} from "boot/axios"
+import Api from "./Api"
 
 export default {
   getFunctionary() {
     try {
-      const response = api.get("/functionary");
+      const response = Api().get("/functionary");
       return response;
     } catch (error) {
       console.log("🚀 ~ getFunctionary ~ error:", error)
@@ -13,7 +13,7 @@ export default {
 
   async addFunctionary(requestData) {
     try {
-      const response = api.post("/functionary/create", requestData);
+      const response = Api().post("/functionary/create", requestData);
       return response;
     } catch (error) {
       console.log("🚀 ~ addFunctionary ~ error:", error)
@@ -23,7 +23,7 @@ export default {
 
   async editFunctionary(functionaryId) {
     try {
-      const response = await api.get('/functionary/edit/${functionaryId}');
+      const response = await Api().get('/functionary/edit/${functionaryId}');
       return response;
     } catch (error) {
       console.log("🚀 ~ editFunctionary ~ error:", error)
@@ -33,7 +33,7 @@ export default {
 
   async updateFunctionary(functionaryId, requestData) {
     try {
-      const response = await api.put('/functionary/update/${functionaryId}, requestData');
+      const response = await Api().put('/functionary/update/${functionaryId}, requestData');
       return response;
     } catch (error) {
       console.log("🚀 ~ updateFunctionary ~ error:", error)
@@ -43,7 +43,7 @@ export default {
 
   async deleteFunctionary(functionaryId) {
     try {
-      const response = await api.delete('/functionary/delete/${functionaryId}');
+      const response = await Api().delete('/functionary/delete/${functionaryId}');
       return response;
     } catch (error) {
       console.log("🚀 ~ deleteFunctionary ~ error:", error)

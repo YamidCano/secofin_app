@@ -1,9 +1,9 @@
-import {api} from "boot/axios"
+import Api from "./Api"
 
 export default {
   getPosition() {
     try {
-      const response = api.get("/position");
+      const response = Api().get("/position");
       return response;
     } catch (error) {
       throw error;
@@ -12,7 +12,7 @@ export default {
 
   async addPosition(requestData) {
     try {
-      const response = api.post("/position/create", requestData);
+      const response = Api().post("/position/create", requestData);
       return response;
     } catch (error) {
       throw error;
@@ -21,7 +21,7 @@ export default {
 
   async editPosition(PositionId) {
     try {
-      const response = await api.get('/position/edit/${PositionId}');
+      const response = await Api().get('/position/edit/${PositionId}');
       return response;
     } catch (error) {
       throw error;
@@ -30,7 +30,7 @@ export default {
 
   async updatePosition(PositionId, requestData) {
     try {
-      const response = await api.put('/position/update/${PositionId}, requestData');
+      const response = await Api().put('/position/update/${PositionId}, requestData');
       return response;
     } catch (error) {
       throw error;
@@ -39,7 +39,7 @@ export default {
 
   async deletePosition(PositionId) {
     try {
-      const response = await api.delete('/position/delete/${PositionId}');
+      const response = await Api().delete('/position/delete/${PositionId}');
       return response;
     } catch (error) {
       throw error;

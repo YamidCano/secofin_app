@@ -44,22 +44,22 @@
             </q-td>
             <q-td key="actions" :props="props">
               <div class="q-gutter-sm">
-                <q-btn v-if="props.row.status == 1" round outline color="primary" icon="mdi-pencil" size="sm" @click="EditArl(props.row.id)">
+                <q-btn v-if="props.row.status == 1" round outline color="primary" icon="mdi-pencil" size="sm"
+                  @click="EditArl(props.row.id)">
                   <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                     Editar
                   </q-tooltip>
                 </q-btn>
-                <q-btn round outline :color="props.row.status == 1 ? 'red' : 'green'"
-                  :icon="props.row.status == 1 ? 'mdi-close-thick' : 'mdi-check-bold'" size="sm"
-                  @click="updateStatus(props.row.id)">
-                  <q-tooltip :class="props.row.status == 1 ? 'bg-red' : 'bg-green'" :offset="[8, 8]" anchor="top middle"
-                    self="bottom middle">
-                    <div v-if="props.row.status == 1">Desabilitar</div>
-                    <div v-else>Habilitar</div>
+                <q-btn round outline :color="props.row.status === 1 ? 'purple' : 'green'"
+                  :icon="props.row.status === 1 ? 'mdi-close-thick' : 'mdi-check-bold'"
+                  @click="handleStatus(props.row.id, props.row.status === 1 ? 2 : 1)" size="sm">
+                  <q-tooltip :class="props.row.status === 1 ? 'bg-purple' : 'bg-green'" class="mobile-hide"
+                    :offset="[8, 8]" anchor="top middle" self="bottom middle">
+                    {{ props.row.status === 1 ? 'Desabilitar' : 'Habilitar' }}
                   </q-tooltip>
                 </q-btn>
-                <q-btn v-if="props.row.status == 1" round outline color="red" icon="mdi-delete" @click="alertDialog = true; itemId = props.row.id"
-                  size=sm>
+                <q-btn v-if="props.row.status == 1" round outline color="red" icon="mdi-delete"
+                  @click="alertDialog = true; itemId = props.row.id" size=sm>
                   <q-tooltip class="bg-red mobile-hide" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                     Eliminar Registro
                   </q-tooltip>
@@ -73,6 +73,22 @@
   </q-card>
   <!-- Componete MyAlertDialog -->
   <MyAlertDialog v-model="alertDialog" :confirm="deleteARL" :id="itemId" />
+
+  <q-dialog v-model="DialogBlock" persistent transition-show="rotate" transition-hide="rotate"
+    backdrop-filter="backdropFilter">
+    <q-card :class="`${DialogColorBlock} text-primary text-center text-white`" style="width: 400px">
+      <q-card-section>
+        <q-icon :name="DialogIconBlock" color="white" size="10em" />
+        <div class="text-h6">
+          {{ DialogText1Block }}
+        </div>
+      </q-card-section>
+      <q-card-actions class="bg-white justify-between">
+        <q-btn flat v-close-popup color="red" label="Cancelar" />
+        <q-btn flat :label="DialogbtnBlock" @click="updateStatus()" color="primary" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup>
@@ -87,6 +103,15 @@ const filter = ref("")
 const loading = ref(true)
 const alertDialog = ref(false)
 const itemId = ref(null)
+
+//Dialogo Block
+const DialogBlock = ref(false)
+const DialogStatusBlock = ref('')
+const DialogColorBlock = ref('')
+const DialogIconBlock = ref('')
+const DialogText1Block = ref('')
+const DialogbtnBlock = ref('')
+const elementID = ref('')
 
 //Componete Table
 const pagination = ref({
@@ -158,11 +183,12 @@ const deleteARL = async (id) => {
   }
 }
 
-const updateStatus = async (id) => {
+const updateStatus = async () => {
   try {
     loading.value = true;
-    const { data } = await serviceArl.updateStatus(id);
-    await getArl();
+    const { data } = await serviceArl.updateStatus(elementID.value);
+    await getArl()
+    DialogBlock.value = false
     showNotify('positive', data.message);
   } catch (error) {
     console.log("🚀 ~ updateStatus ~ error:", error)
@@ -170,6 +196,24 @@ const updateStatus = async (id) => {
   } finally {
     loading.value = false;
     alertDialog.value = false;
+  }
+}
+//Inactivar o Activar usuario
+const handleStatus = async (Id, newStatus) => {
+  try {
+    loading.value = true
+    DialogBlock.value = true
+    DialogStatusBlock.value = newStatus
+    DialogColorBlock.value = `bg-${newStatus === 2 ? 'red' : 'green'}`
+    DialogIconBlock.value = `mdi-${newStatus === 2 ? 'close-thick' : 'check-bold'}`
+    DialogText1Block.value = `¿Estás seguro de ${newStatus === 2 ? 'Inactivar' : 'Activar'} la ARL?`
+    DialogbtnBlock.value = `Sí, ${newStatus === 2 ? 'Inactivar' : 'Activar'}`
+    elementID.value = Id
+  } catch (error) {
+    console.log(`Error al ${newStatus === 2 ? 'Inactivar' : 'Activar'}:`, error)
+    showNotify('negative', 'Error al Inactivar la ARL');
+  } finally {
+    loading.value = false;
   }
 }
 
