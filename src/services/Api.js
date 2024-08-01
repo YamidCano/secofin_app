@@ -2,8 +2,8 @@ import axios from "axios"
 import { useAppStore } from 'stores/app';
 import { Notify } from 'quasar'
 
-export const urlBase = "http://127.0.0.1:8000/api";
-// export const urlBase = "https://app.secofin-on.com/service/public/api";
+// export const urlBase = "http://127.0.0.1:8000/api";
+export const urlBase = "https://api.secofin-on.com/api";
 
 const showErrorAlert = () => {
 

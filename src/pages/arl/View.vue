@@ -211,6 +211,8 @@ const showNotify = (type, message) => {
     message: message,
     type: type,
     position: 'top-right',
+    badgeColor: 'white',
+    badgeTextColor: 'dark',
     progress: true,
     actions: [{ icon: 'close', color: 'white' }]
   });
