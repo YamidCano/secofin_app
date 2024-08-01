@@ -1,12 +1,12 @@
 <template>
   <q-card class="q-ma-lg q-pa-lg">
-    <div class="text-h6">Listado de ARL</div>
+    <div class="text-h6">Listado de EPS</div>
     <div>
-      <q-table flat bordered separator="cell" :rows="arl" :columns="columns" :filter="filter" :pagination="pagination"
+      <q-table flat bordered separator="cell" :rows="eps" :columns="columns" :filter="filter" :pagination="pagination"
         no-data-label="No se encontraron resultados" no-results-label="No se encontraron resultados en la busqueda"
         row-key="name">
         <template v-slot:top-left>
-          <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'arlCreate' }" />
+          <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'epsCreate' }" />
         </template>
         <template v-slot:top-right>
           <q-input clearable dense debounce="300" outlined v-model="filter" placeholder="Buscar">
@@ -45,7 +45,7 @@
             <q-td key="actions" :props="props">
               <div class="q-gutter-sm">
                 <q-btn v-if="props.row.status == 1" round outline color="primary" icon="mdi-pencil" size="sm"
-                  @click="EditArl(props.row.id)">
+                  @click="EditEps(props.row.id)">
                   <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                     Editar
                   </q-tooltip>
@@ -72,7 +72,7 @@
     </div>
   </q-card>
   <!-- Componete MyAlertDialog -->
-  <MyAlertDialog v-model="alertDialog" :confirm="deleteARL" :id="itemId" />
+  <MyAlertDialog v-model="alertDialog" :confirm="deleteEPS" :id="itemId" />
 
   <q-dialog v-model="DialogBlock" persistent transition-show="rotate" transition-hide="rotate"
     backdrop-filter="backdropFilter">
@@ -93,10 +93,10 @@
 
 <script setup>
 import { ref, onMounted } from "vue"
-import serviceArl from "src/services/serviceArl"
+import serviceEps from "src/services/serviceEps"
 import MyAlertDialog from 'components/alertDialog.vue'
 import { Notify } from 'quasar'
-const arl = ref([]);
+const eps = ref([]);
 const filter = ref("")
 
 //Componete MyAlertDialog
@@ -146,29 +146,29 @@ const columns = [
 ];
 
 onMounted(async () => {
-  await getArl();
-});
+  await getEps();
+})
 
-const getArl = async () => {
+const getEps = async () => {
   try {
-    const { data } = await serviceArl.getArl();
-    arl.value = data.data
+    const { data } = await serviceEps.getEps();
+    eps.value = data.data;
   } catch (error) {
-    console.error("Error al obtener ARL:", error);
-    showNotify('negative', 'Error al obtener la lista de ARL');
+    console.error("Error al obtener EPS:", error);
+    showNotify('negative', 'Error al obtener la lista de EPS');
   }
 }
 
-const EditArl = async (id) => {
-  StoreEditData.setEditARL(id)
-  router.push({ name: 'arlUpdate' })
+const EditEps = (id) => {
+  StoreEditData.setEditEPS(id);
+  router.push({ name: 'epsUpdate' });
 }
 
-const deleteARL = async (id) => {
+const deleteEPS = async (id) => {
   try {
     loading.value = true;
-    const { data } = await serviceArl.deleteArl(id);
-    await getArl();
+    const { data } = await serviceEps.deleteEps(id);
+    await getEps();
     showNotify('positive', data.message);
   } catch (error) {
     console.error("Error al eliminar EPS:", error);
@@ -182,28 +182,26 @@ const deleteARL = async (id) => {
 const updateStatus = async () => {
   try {
     loading.value = true;
-    const { data } = await serviceArl.updateStatus(elementID.value);
-    await getArl()
-    DialogBlock.value = false
+    const { data } = await serviceEps.updateStatus(elementID.value);
+    await getEps();
+    DialogBlock.value = false;
     showNotify('positive', data.message);
   } catch (error) {
     console.error("Error al actualizar el estado:", error);
     showNotify('negative', error.response?.data?.message || 'Error al actualizar el estado');
   } finally {
     loading.value = false;
-    alertDialog.value = false;
   }
 }
 
-const handleStatus = async (Id, newStatus) => {
-  loading.value = true
-  DialogBlock.value = true
-  DialogStatusBlock.value = newStatus
-  DialogColorBlock.value = `bg-${newStatus === 2 ? 'red' : 'green'}`
-  DialogIconBlock.value = `mdi-${newStatus === 2 ? 'close-thick' : 'check-bold'}`
-  DialogText1Block.value = `¿Estás seguro de ${newStatus === 2 ? 'Inactivar' : 'Activar'} la ARL?`
-  DialogbtnBlock.value = `Sí, ${newStatus === 2 ? 'Inactivar' : 'Activar'}`
-  elementID.value = Id
+const handleStatus = (Id, newStatus) => {
+  DialogBlock.value = true;
+  DialogStatusBlock.value = newStatus;
+  DialogColorBlock.value = `bg-${newStatus === 2 ? 'red' : 'green'}`;
+  DialogIconBlock.value = `mdi-${newStatus === 2 ? 'close-thick' : 'check-bold'}`;
+  DialogText1Block.value = `¿Estás seguro de ${newStatus === 2 ? 'Inactivar' : 'Activar'} la EPS?`;
+  DialogbtnBlock.value = `Sí, ${newStatus === 2 ? 'Inactivar' : 'Activar'}`;
+  elementID.value = Id;
 }
 
 const showNotify = (type, message) => {

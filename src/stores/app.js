@@ -51,6 +51,7 @@ export const useAppStore = defineStore('secofin', {
 export const EditDataStore = defineStore('editData', {
   state: () => ({
     EditARL: null,
+    EditEPS: null,
   }),
 
   persist: {
@@ -64,6 +65,10 @@ export const EditDataStore = defineStore('editData', {
   actions: {
     setEditARL(data) {
       this.EditARL = data;
+    },
+
+    setEditEPS(data) {
+      this.EditEPS = data;
     }
   },
 

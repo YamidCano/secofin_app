@@ -41,6 +41,9 @@
           <q-item clickable v-ripple :to="{ name: 'arlView' }">
             <q-item-section>ARL</q-item-section>
           </q-item>
+          <q-item clickable v-ripple :to="{ name: 'epsView' }">
+            <q-item-section>EPS</q-item-section>
+          </q-item>
         </q-list>
       </q-list>
     </q-drawer>

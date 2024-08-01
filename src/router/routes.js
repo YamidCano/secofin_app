@@ -1,4 +1,5 @@
 import { ArlRoutes } from 'src/router/rauterPages/arl'
+import { EpsRoutes } from 'src/router/rauterPages/eps'
 import { FunctionaryRoutes } from './rauterPages/functionary';
 import { PositionRoutes } from './rauterPages/position';
 import { PayrollRoutes } from './rauterPages/payroll';
@@ -23,6 +24,9 @@ const routes = [
 
       // Router arl
       ...ArlRoutes,
+
+      // Router arl
+      ...EpsRoutes,
     ],
   },
 
