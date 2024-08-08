@@ -3,6 +3,9 @@ import { EpsRoutes } from 'src/router/rauterPages/eps'
 import { FunctionaryRoutes } from './rauterPages/functionary';
 import { PositionRoutes } from './rauterPages/position';
 import { PayrollRoutes } from './rauterPages/payroll';
+import { PensionesRoutes } from './rauterPages/pensiones';
+import { CesantiasRoutes } from './rauterPages/cesantias';
+
 const routes = [
   {
     path: "/",
@@ -25,8 +28,14 @@ const routes = [
       // Router arl
       ...ArlRoutes,
 
-      // Router arl
+      // Router Eeps
       ...EpsRoutes,
+
+      // Router pensiones
+      ...PensionesRoutes,
+
+      // Router cesantias
+      ...CesantiasRoutes,
     ],
   },
 

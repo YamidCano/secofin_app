@@ -2,14 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title> Secofin App </q-toolbar-title>
 
@@ -43,6 +36,12 @@
           </q-item>
           <q-item clickable v-ripple :to="{ name: 'epsView' }">
             <q-item-section>EPS</q-item-section>
+          </q-item>
+          <q-item clickable v-ripple :to="{ name: 'cesantiasView' }">
+            <q-item-section>Cesantias</q-item-section>
+          </q-item>
+          <q-item clickable v-ripple :to="{ name: 'pensionesView' }">
+            <q-item-section>Pensiones</q-item-section>
           </q-item>
         </q-list>
       </q-list>
