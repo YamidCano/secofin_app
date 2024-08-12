@@ -1,12 +1,17 @@
 <template>
   <q-card class="q-ma-lg">
     <q-card-section>
-      <div class="text-h6">Actualizar Pensiones</div>
+      <div class="text-h6">Actualizar AFP</div>
       <div class="row q-mt-md">
         <div class="col">
-          <q-input class="q-px-sm" outlined label="Nombre Pensiones" v-model="nombre" :loading="loading" />
+          <q-input class="q-px-sm" outlined label="Nombre" v-model="nombre" :loading="loading" />
+        </div>
+        <div class="col">
+          <q-input type="number" class="q-px-sm" outlined label="Nit" v-model="nit" :loading="loading" />
         </div>
       </div>
+
+    {{ StoreEditData.EditAfp }}
     </q-card-section>
     <q-card-actions vertical align="right">
       <q-btn flat @click="update">Actualizar</q-btn>
@@ -15,10 +20,10 @@
 </template>
 <script setup>
 import { ref, onMounted } from "vue"
-import servicePensiones from "src/services/servicePensiones"
+import serviceAfp from "src/services/serviceAfp"
 import { Notify } from 'quasar'
 const nombre = ref("")
-const roleId = ref('')
+const nit = ref('')
 
 // Loading
 const loading = ref(false)
@@ -30,14 +35,15 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 onMounted(async () => {
-  await showPensiones()
+  await showAfp()
 });
 
-const showPensiones = async () => {
+const showAfp = async () => {
   try {
     loading.value = true
-    const { data } = await servicePensiones.showPensiones(StoreEditData.EditPensiones);
+    const { data } = await serviceAfp.showAfp(StoreEditData.EditAfp);
     nombre.value = data.data.nombre
+    nit.value = data.data.nit
   } catch (error) {
     showNotify('negative', error.response?.data?.message || 'Error al obtener datos');
   } finally {
@@ -49,13 +55,14 @@ const update = async () => {
   loading.value = true;
   try {
     const requestData = {
-      nombre: nombre.value
+      nombre: nombre.value,
+      nit: nit.value
     }
-    const { data } = await servicePensiones.updatePensiones(StoreEditData.EditPensiones, requestData);
+    const { data } = await serviceAfp.updateAfp(StoreEditData.EditAfp, requestData);
     showNotify('positive', data.message)
-    router.push({ name: "pensionesView" });
+    router.push({ name: "afpView" });
   } catch (error) {
-    showNotify('negative', error.response?.data?.errors?.nombre || 'Error al actualizar la Pensiones');
+    showNotify('negative', error.response?.data?.errors?.nombre || 'Error al actualizar la Afp');
   } finally {
     loading.value = false;
   }

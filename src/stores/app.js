@@ -52,8 +52,7 @@ export const EditDataStore = defineStore('editData', {
   state: () => ({
     EditARL: null,
     EditEPS: null,
-    EditCesantias: null,
-    EditPensiones: null,
+    EditAfp: null
   }),
 
   persist: {
@@ -73,12 +72,8 @@ export const EditDataStore = defineStore('editData', {
       this.EditEPS = data;
     },
 
-    setEditCesantias(data) {
-      this.EditCesantias = data;
-    },
-
-    setEditPensiones(data) {
-      this.EditPensiones = data;
+    setEditAfp(data) {
+      this.EditAfp = data;
     }
   },
 

@@ -37,11 +37,8 @@
           <q-item clickable v-ripple :to="{ name: 'epsView' }">
             <q-item-section>EPS</q-item-section>
           </q-item>
-          <q-item clickable v-ripple :to="{ name: 'cesantiasView' }">
-            <q-item-section>Cesantias</q-item-section>
-          </q-item>
-          <q-item clickable v-ripple :to="{ name: 'pensionesView' }">
-            <q-item-section>Pensiones</q-item-section>
+          <q-item clickable v-ripple :to="{ name: 'afpView' }">
+            <q-item-section>AFP</q-item-section>
           </q-item>
         </q-list>
       </q-list>

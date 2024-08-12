@@ -1,12 +1,12 @@
 <template>
   <q-card class="q-ma-lg q-pa-lg">
-    <div class="text-h6">Listado de Cesantias</div>
+    <div class="text-h6">Listado de Fondo de Pensiones y Cesantías</div>
     <div>
-      <q-table flat bordered separator="cell" :rows="cesantias" :columns="columns" :filter="filter" :pagination="pagination"
+      <q-table flat bordered separator="cell" :rows="afp" :columns="columns" :filter="filter" :pagination="pagination"
         no-data-label="No se encontraron resultados" no-results-label="No se encontraron resultados en la busqueda"
         row-key="name">
         <template v-slot:top-left>
-          <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'cesantiasCreate' }" />
+          <q-btn outline color="primary" icon="mdi-plus" label="Crear" :to="{ name: 'afpCreate' }" />
         </template>
         <template v-slot:top-right>
           <q-input clearable dense debounce="300" outlined v-model="filter" placeholder="Buscar">
@@ -28,6 +28,9 @@
             <q-td key="name" :props="props">
               {{ props.row.nombre }}
             </q-td>
+            <q-td key="nit" :props="props">
+              {{ props.row.nit }}
+            </q-td>
             <q-td key="status" :props="props">
               <div v-if="props.row.status == 1">
                 <q-chip>
@@ -45,7 +48,7 @@
             <q-td key="actions" :props="props">
               <div class="q-gutter-sm">
                 <q-btn v-if="props.row.status == 1" round outline color="primary" icon="mdi-pencil" size="sm"
-                  @click="EditCesantias(props.row.id)">
+                  @click="EditAfp(props.row.id)">
                   <q-tooltip class="bg-primary" :offset="[8, 8]" anchor="top middle" self="bottom middle">
                     Editar
                   </q-tooltip>
@@ -72,7 +75,7 @@
     </div>
   </q-card>
   <!-- Componete MyAlertDialog -->
-  <MyAlertDialog v-model="alertDialog" :confirm="deleteCesantias" :id="itemId" />
+  <MyAlertDialog v-model="alertDialog" :confirm="deleteAfp" :id="itemId" />
 
   <q-dialog v-model="DialogBlock" persistent transition-show="rotate" transition-hide="rotate"
     backdrop-filter="backdropFilter">
@@ -93,10 +96,10 @@
 
 <script setup>
 import { ref, onMounted } from "vue"
-import serviceCesantias from "src/services/serviceCesantias"
+import serviceAfp from "src/services/serviceAfp"
 import MyAlertDialog from 'components/alertDialog.vue'
 import { Notify } from 'quasar'
-const cesantias = ref([]);
+const afp = ref([]);
 const filter = ref("")
 
 //Componete MyAlertDialog
@@ -136,6 +139,13 @@ const columns = [
     sortable: true,
   },
   {
+    name: "nit",
+    align: "left",
+    label: "Nit",
+    field: "nit",
+    sortable: true,
+  },
+  {
     name: "status",
     align: "left",
     label: "Estado",
@@ -146,33 +156,33 @@ const columns = [
 ];
 
 onMounted(async () => {
-  await getCesantias();
+  await getAfp();
 });
 
-const getCesantias = async () => {
+const getAfp = async () => {
   try {
-    const { data } = await serviceCesantias.getCesantias();
-    cesantias.value = data.data
+    const { data } = await serviceAfp.getAfp();
+    afp.value = data.data
   } catch (error) {
-    console.error("Error al obtener Cesantias:", error);
-    showNotify('negative', 'Error al obtener la lista de Cesantias');
+    console.error("Error al obtener AFP:", error);
+    showNotify('negative', 'Error al obtener la lista de AFP');
   }
 }
 
-const EditCesantias = async (id) => {
-  StoreEditData.setEditCesantias(id)
-  router.push({ name: 'cesantiasUpdate' })
+const EditAfp = async (id) => {
+  StoreEditData.setEditAfp(id)
+  router.push({ name: 'afpUpdate' })
 }
 
-const deleteCesantias = async (id) => {
+const deleteAfp = async (id) => {
   try {
     loading.value = true;
-    const { data } = await serviceCesantias.deleteCesantias(id);
-    await getCesantias();
+    const { data } = await serviceAfp.deleteAfp(id);
+    await getAfp();
     showNotify('positive', data.message);
   } catch (error) {
-    console.error("Error al eliminar EPS:", error);
-    showNotify('negative', error.response?.data?.message || 'Error al eliminar EPS');
+    console.error("Error al eliminar Afp:", error);
+    showNotify('negative', error.response?.data?.message || 'Error al eliminar Afp');
   } finally {
     loading.value = false;
     alertDialog.value = false;
@@ -182,8 +192,8 @@ const deleteCesantias = async (id) => {
 const updateStatus = async () => {
   try {
     loading.value = true;
-    const { data } = await serviceCesantias.updateStatus(elementID.value);
-    await getCesantias()
+    const { data } = await serviceAfp.updateStatus(elementID.value);
+    await getAfp()
     DialogBlock.value = false
     showNotify('positive', data.message);
   } catch (error) {
@@ -201,7 +211,7 @@ const handleStatus = async (Id, newStatus) => {
   DialogStatusBlock.value = newStatus
   DialogColorBlock.value = `bg-${newStatus === 2 ? 'red' : 'green'}`
   DialogIconBlock.value = `mdi-${newStatus === 2 ? 'close-thick' : 'check-bold'}`
-  DialogText1Block.value = `¿Estás seguro de ${newStatus === 2 ? 'Inactivar' : 'Activar'} la Cesantias?`
+  DialogText1Block.value = `¿Estás seguro de ${newStatus === 2 ? 'Inactivar' : 'Activar'} la Afp?`
   DialogbtnBlock.value = `Sí, ${newStatus === 2 ? 'Inactivar' : 'Activar'}`
   elementID.value = Id
 }

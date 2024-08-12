@@ -1,10 +1,13 @@
 <template>
   <q-card class="q-ma-lg">
     <q-card-section>
-      <div class="text-h6">Crear Pensiones</div>
+      <div class="text-h6">Crear AFP</div>
       <div class="row q-mt-md">
         <div class="col">
-          <q-input class="q-px-sm" outlined label="Nombre Pensiones" v-model="nombre" :loading="loading" />
+          <q-input class="q-px-sm" outlined label="Nombre" v-model="nombre" :loading="loading" />
+        </div>
+        <div class="col">
+          <q-input type="number" class="q-px-sm" outlined label="Nit" v-model="nit" :loading="loading" />
         </div>
       </div>
     </q-card-section>
@@ -15,11 +18,12 @@
 </template>
 <script setup>
 import { ref } from "vue"
-import servicePensiones from "src/services/servicePensiones"
+import serviceAfp from "src/services/serviceAfp"
 import { useRouter } from "vue-router"
 import { Notify } from 'quasar'
 const router = useRouter()
 const nombre = ref("")
+const nit = ref("")
 
 // Loading
 const loading = ref(false)
@@ -28,14 +32,15 @@ const create = async () => {
   loading.value = true;
   try {
     const requestData = {
-      nombre: nombre.value
+      nombre: nombre.value,
+      nit: nit.value
     }
-    const { data } = await servicePensiones.addPensiones(requestData);
+    const { data } = await serviceAfp.addAfp(requestData);
     showNotify('positive', data.message)
-    router.push({ name: "pensionesView" });
+    router.push({ name: "afpView" });
   } catch (error) {
     console.log("🚀 ~ create ~ error:", error)
-    showNotify('negative', error.response?.data?.errors?.nombre || 'Error al crear la Pensiones');
+    showNotify('negative', error.response?.data?.errors?.nombre || 'Error al crear la Afp');
   } finally {
     loading.value = false;
   }
